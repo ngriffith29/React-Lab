@@ -12,25 +12,29 @@ class App extends Component {
         this.setState({ text: value });
     }
     hasLoaded = (value) => {
-        if(this.state.hasLoaded === false){
-       return this.setState({ hasLoaded: true} );}
-       else{
-           return <h1>Hello World</h1>
-       }
+        this.setState(prevState => ({
+           hasLoaded: !prevState.hasLoaded
+          }));
     }
     render() {
-
-        return (
+        if(this.state.hasLoaded === false){
+            return (<React.Fragment>
+            <h1>Loading.....</h1>
+            <button onClick={(event) => this.hasLoaded()}
+            >CLICK ME BITCH I..DARE YOU</button>
+            </React.Fragment>)
+        }else{
+            return(
             <React.Fragment>
-                <h1>Hello, {this.state.text}, {this.props.nameProp}</h1>
-            <input type="Text" placeholder={this.state.hasLoaded }
-                    onChange={(event) => this.handleInputChange(event.target.value)}></input>
-                <br></br>
-                <button onClick={(event) => this.hasLoaded()}
-                >CLICK ME BITCH I..DARE YOU</button>
-            </React.Fragment>
-
-        );
+            <h1>Hello, {this.state.text}, {this.props.nameProp}</h1>
+        <input type="Text" placeholder={this.state.hasLoaded }
+                onChange={(event) => this.handleInputChange(event.target.value)}></input>
+            <br></br>
+            <button onClick={(event) => this.hasLoaded()}
+            >CLICK ME BITCH I..DARE YOU</button>
+        </React.Fragment>
+            )}
+        
     }
 }
 export default App;
